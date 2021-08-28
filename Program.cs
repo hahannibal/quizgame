@@ -12,7 +12,7 @@ namespace quizgame
             string dataBase = Path.Combine(Directory.GetCurrentDirectory(), "Database.txt");
             if ((File.Exists(dataBase)) == false)
             {
-                using (File.Create(dataBase));
+                using (File.Create(dataBase)); // without "using" the code fails at linecount. why?
             }
             int lineCount = File.ReadLines(dataBase).Count();
             UI.WelcomeMessage();
@@ -20,9 +20,18 @@ namespace quizgame
             bool wantToAdd = UI.AddQuestionRequest();
             while (wantToAdd)
             {
-                UpdateDatabase(dataBase);               
+                UpdateDatabase(dataBase);
+                lineCount++;
                 wantToAdd = UI.AddQuestionRequest();
             }
+            bool wantToPlay = UI.StartTheGame();
+            while (wantToPlay)
+            {
+                Random number = new Random();
+                UI.DisplayQuestion(dataBase, number.Next(0,lineCount));
+                wantToPlay = UI.StartTheGame();
+            }
+            
             
         }
 
