@@ -9,7 +9,12 @@ namespace quizgame
     {
         static void Main(string[] args)
         {
-            string dataBase = ("C:\\Users\\Tamas Kiss\\source\\repos\\quizgame\\Database.txt");
+            string dataBase = Path.Combine(Directory.GetCurrentDirectory(), "Database.txt");
+            Console.WriteLine(dataBase);
+            if ((File.Exists(dataBase)) == false)
+            {
+                using (File.Create(dataBase));
+            }
             int lineCount = File.ReadLines(dataBase).Count();
             StreamWriter sw = new StreamWriter(dataBase, true, Encoding.ASCII);
             UI.WelcomeMessage();
