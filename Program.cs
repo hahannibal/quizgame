@@ -9,8 +9,9 @@ namespace quizgame
     {
         static void Main(string[] args)
         {
-            int lineCount = File.ReadLines("C:\\Users\\Tamas Kiss\\source\\repos\\quizgame\\Database.txt").Count();
-            StreamWriter sw = new StreamWriter("C:\\Users\\Tamas Kiss\\source\\repos\\quizgame\\Database.txt", true, Encoding.ASCII);
+            string dataBase = ("C:\\Users\\Tamas Kiss\\source\\repos\\quizgame\\Database.txt");
+            int lineCount = File.ReadLines(dataBase).Count();
+            StreamWriter sw = new StreamWriter(dataBase, true, Encoding.ASCII);
             UI.WelcomeMessage();
             UI.CurrentQuestions(lineCount);
             bool wantToAdd = UI.AddQuestionRequest();
