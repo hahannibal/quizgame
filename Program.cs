@@ -24,12 +24,12 @@ namespace quizgame
                 lineCount++;
                 wantToAdd = UI.AddQuestionRequest();
             }
-            bool wantToPlay = UI.StartTheGame();
+            bool wantToPlay = UI.GameLoop();
             while (wantToPlay)
             {
                 Random number = new Random();
                 UI.DisplayQuestion(dataBase, number.Next(0,lineCount));
-                wantToPlay = UI.StartTheGame();
+                wantToPlay = UI.GameLoop();
             }
             
             

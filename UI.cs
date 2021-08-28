@@ -129,11 +129,11 @@ namespace quizgame
         /// asking the user if he wants to play/play again
         /// </summary>
         /// <returns>y = true , else = false</returns>
-        public static bool StartTheGame()
+        public static bool GameLoop()
         {
-            Console.WriteLine("Should we play?(y/n)");
-            string i = Console.ReadLine();
-            if (i == "y")
+            Console.WriteLine("Push the SpaceBar to get a question!");
+            ConsoleKeyInfo answer = Console.ReadKey();
+            if (answer.Key == ConsoleKey.Spacebar)
             {
                 return true;
             }
