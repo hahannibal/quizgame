@@ -17,7 +17,7 @@ namespace quizgame
             while (wantToAdd)
             {
                 var question = UI.AddQuestion();
-                sw.WriteLine(question.Question + ", " + question.CorrectAnswer + ", " + question.IncorrectAnswer1 + ", " + question.IncorrectAnswer2 + ", " + question.IncorrectAnswer3);
+                sw.WriteLine(question);
                 wantToAdd = UI.AddQuestionRequest();
             }
             sw.Close();
