@@ -140,5 +140,26 @@ namespace quizgame
             return false;
 
         }
+
+        /// <summary>
+        /// Message when getting points
+        /// </summary>
+        /// <param name="userScore">the current score of the user</param>
+        public static void UserWonARound(int userScore)
+        {
+            if (userScore > 10)
+            {
+                Console.WriteLine($"Wow! You have {userScore} points! NOOICE!");
+            }
+            Console.WriteLine($"Your score currently is {userScore}");
+        }
+        /// <summary>
+        /// Message when losing a point
+        /// </summary>
+        /// <param name="userScore">the current score of the user</param>
+        public static void UserLostARound(int userScore)
+        {
+            Console.WriteLine($"You lost a point and now have {userScore} points");
+        }
     }
 }

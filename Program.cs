@@ -9,6 +9,7 @@ namespace quizgame
     {
         static void Main(string[] args)
         {
+            int userScore = 0;
             string dataBase = Path.Combine(Directory.GetCurrentDirectory(), "Database.txt");
             if ((File.Exists(dataBase)) == false)
             {
@@ -28,7 +29,18 @@ namespace quizgame
             while (wantToPlay)
             {
                 Random number = new Random();
-                UI.DisplayQuestion(dataBase, number.Next(0,lineCount));
+                bool gameRound = UI.DisplayQuestion(dataBase, number.Next(0,lineCount));
+                if (gameRound)
+                {
+                    userScore++;
+                    UI.UserWonARound(userScore);
+                }
+                else
+                {
+                    userScore--;
+                    UI.UserLostARound(userScore);
+                }
+                
                 wantToPlay = UI.GameLoop();
             }
             
