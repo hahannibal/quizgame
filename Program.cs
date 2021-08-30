@@ -10,7 +10,7 @@ namespace quizgame
         static void Main(string[] args)
         {
             int userScore = 0;
-            string dataBase = ("Database.txt");
+            string dataBase = Database.DataBaseName();
             Database.FileExist();
            
             int lineCount = File.ReadLines(dataBase).Count();
