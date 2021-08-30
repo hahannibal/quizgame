@@ -30,6 +30,15 @@ namespace quizgame
             var filestream = File.Create(DataBaseName());
             filestream.Close();
         }
+        /// <summary>
+        /// Counting the questions in the database by checking the number of lines
+        /// </summary>
+        /// <returns>number of questions</returns>
+        public static int QuestionCounter()
+        {
+            int i = File.ReadLines(DataBaseName()).Count();
+            return i;
+        }
 
 
     }
