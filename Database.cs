@@ -44,10 +44,10 @@ namespace quizgame
         /// Adding questions to the database
         /// </summary>
         /// <param name="path">path of the database</param>
-        public static void UpdateDatabase()
+        public static void UpdateDatabase(QuestionAndAnswer x)
         {
             StreamWriter sw = new StreamWriter(DataBaseName(), true, Encoding.ASCII);
-            var question = UI.AddQuestion();
+            var question = x;
             sw.WriteLine(question);
             sw.Close();
         }

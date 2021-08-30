@@ -18,14 +18,14 @@ namespace quizgame
             bool wantToAdd = UI.AddQuestionRequest();
             while (wantToAdd)
             {
-                Database.UpdateDatabase();
+                Database.UpdateDatabase(UI.AddQuestion());
                 wantToAdd = UI.AddQuestionRequest();
             }
             bool wantToPlay = UI.GameLoop();
             while (wantToPlay)
             {
                 Random number = new Random();
-                bool gameRound = UI.DisplayQuestion(Database.DataBaseName(), number.Next(0,10));
+                bool gameRound = UI.DisplayQuestion(Database.DataBaseName(), number.Next(0,Database.QuestionCount()));
                 if (gameRound)
                 {
                     userScore++;
