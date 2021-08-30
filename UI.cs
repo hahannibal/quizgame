@@ -42,9 +42,9 @@ namespace quizgame
         /// Displaying the number of questions in the system
         /// </summary>
         /// <param name="count">number of questions</param>
-        public static void CurrentQuestions(int count)
+        public static void CurrentQuestions()
         {
-            Console.WriteLine($"There is {count} questions in my database!");
+            Console.WriteLine($"There is {Database.QuestionCounter()} questions in my database!");
         }
         /// <summary>
         /// Ask the user if he wants to add a new question to the database
