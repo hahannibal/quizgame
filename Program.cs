@@ -10,11 +10,9 @@ namespace quizgame
         static void Main(string[] args)
         {
             int userScore = 0;
-            string dataBase = Path.Combine(Directory.GetCurrentDirectory(), "Database.txt");
-            if ((File.Exists(dataBase)) == false)
-            {
-                using (File.Create(dataBase)); // without "using" the code fails at linecount. why?
-            }
+            string dataBase = ("Database.txt");
+            Database.FileExist();
+           
             int lineCount = File.ReadLines(dataBase).Count();
             UI.WelcomeMessage();
             UI.CurrentQuestions(lineCount);
