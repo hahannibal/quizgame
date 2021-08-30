@@ -40,6 +40,18 @@ namespace quizgame
             return i;
         }
 
+        /// <summary>
+        /// Adding questions to the database
+        /// </summary>
+        /// <param name="path">path of the database</param>
+        public static void UpdateDatabase(string path)
+        {
+            StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
+            var question = UI.AddQuestion();
+            sw.WriteLine(question);
+            sw.Close();
+        }
+
 
     }
 }
