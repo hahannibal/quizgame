@@ -161,5 +161,10 @@ namespace quizgame
         {
             Console.WriteLine($"You lost a point and now have {userScore} points");
         }
+
+        public static void ZeroQuestion()
+        {
+            Console.WriteLine("You cannot play as I have no questions, sorry :(");
+        }
     }
 }

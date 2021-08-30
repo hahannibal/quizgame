@@ -41,9 +41,9 @@ namespace quizgame
         }
 
         /// <summary>
-        /// Adding questions to the database
+        /// saves a line to the database
         /// </summary>
-        /// <param name="path">path of the database</param>
+        /// <param name="x">QuestionAndAnswer object containing the new question and the answers</param>
         public static void UpdateDatabase(QuestionAndAnswer x)
         {
             StreamWriter sw = new StreamWriter(DataBaseName(), true, Encoding.ASCII);

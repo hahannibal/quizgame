@@ -21,6 +21,11 @@ namespace quizgame
                 Database.UpdateDatabase(UI.AddQuestion());
                 wantToAdd = UI.AddQuestionRequest();
             }
+            if (Database.QuestionCount() == 0)
+            {
+                UI.ZeroQuestion();
+                Environment.Exit(0);
+            }
             bool wantToPlay = UI.GameLoop();
             while (wantToPlay)
             {
