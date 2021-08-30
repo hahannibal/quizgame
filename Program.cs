@@ -14,7 +14,7 @@ namespace quizgame
             Database.FileExist();
 
             UI.WelcomeMessage();
-            UI.CurrentQuestions(Database.QuestionCounter());
+            UI.CurrentQuestions(Database.QuestionCount());
             bool wantToAdd = UI.AddQuestionRequest();
             while (wantToAdd)
             {

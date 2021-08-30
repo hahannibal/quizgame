@@ -34,7 +34,7 @@ namespace quizgame
         /// Counting the questions in the database by checking the number of lines
         /// </summary>
         /// <returns>number of questions</returns>
-        public static int QuestionCounter()
+        public static int QuestionCount()
         {
             int i = File.ReadLines(DataBaseName()).Count();
             return i;
