@@ -5,7 +5,13 @@ namespace quizgame
     {
         public string Question;
         public List<string> Answers = new List<string>();
-        public int CorrectAnswerNumber;
+        public bool isCorrect;
+        public List<QAPair> NewAnswers = new List<QAPair>();
+    }
 
+    public class QAPair
+    {
+        public string Answer;
+        public bool isCorrect;
     }
 }

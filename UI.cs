@@ -26,16 +26,30 @@ namespace quizgame
             Console.WriteLine("Enter a question:");
             var questionAndAnswer = new QuestionAndAnswer();
             questionAndAnswer.Question = Console.ReadLine();
-            Console.WriteLine("Enter an answer:");
-            questionAndAnswer.Answers.Add(Console.ReadLine());
-            Console.WriteLine("Enter another answer:");
-            questionAndAnswer.Answers.Add(Console.ReadLine());
-            Console.WriteLine("Enter a third answer:");
-            questionAndAnswer.Answers.Add(Console.ReadLine());
-            Console.WriteLine("Enter a fourth answer:");
-            questionAndAnswer.Answers.Add(Console.ReadLine());
-            Console.WriteLine("Enter the index of the correct answer (the first answer's index is 0)");
-            questionAndAnswer.CorrectAnswerNumber = Int32.Parse(Console.ReadLine());
+            bool wantToAdd = true;
+            while (wantToAdd)
+            {
+                Console.WriteLine("Enter an answer(right or wrong):");
+                questionAndAnswer.Answers.Add(Console.ReadLine());
+                Console.WriteLine("Is this the right answer?(y/n)");
+                string isTheRightAnswer = Console.ReadLine();
+                if (isTheRightAnswer == "y")
+                {
+                    questionAndAnswer.isCorrect = true;
+                }
+                else
+                {
+                    questionAndAnswer.isCorrect = false;
+                }
+                Console.WriteLine("Do you want to add more answers?(y/n)");
+                string moreQuestion = Console.ReadLine();
+                if(moreQuestion != "y")
+                {
+                    wantToAdd = false;
+                }
+                
+                
+            }
             Console.Clear();
             return questionAndAnswer;
         }
