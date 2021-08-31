@@ -47,7 +47,8 @@ namespace quizgame
         public static void UpdateDatabase(QuestionAndAnswer x)
         {
             StreamWriter sw = new StreamWriter(DataBaseName(), true, Encoding.ASCII);
-            var question = x;
+            string answersToSave = string.Join(",", x.Answers);
+            var question = x.Question + "," + answersToSave + "," + x.CorrectAnswerNumber;
             sw.WriteLine(question);
             sw.Close();
         }
