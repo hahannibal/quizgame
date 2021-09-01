@@ -42,7 +42,7 @@ namespace quizgame
                 {
                     x.isCorrect = false;
                 }
-                questionAndAnswer.Answers.Add(x);
+                questionAndAnswer.QAPairs.Add(x);
                 Console.WriteLine("Do you want to add more answers?(y/n)");
                 string moreQuestion = Console.ReadLine();
                 if(moreQuestion != "y")
