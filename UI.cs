@@ -23,24 +23,26 @@ namespace quizgame
         /// <returns>question and answers</returns>
         public static QuestionAndAnswer AddQuestion()
         {
-            Console.WriteLine("Enter a question:");
             var questionAndAnswer = new QuestionAndAnswer();
+            Console.WriteLine("Enter a question:");
             questionAndAnswer.Question = Console.ReadLine();
             bool wantToAdd = true;
             while (wantToAdd)
             {
+                QAPair x = new QAPair();
                 Console.WriteLine("Enter an answer(right or wrong):");
-                questionAndAnswer.Answers.Add(Console.ReadLine());
+                x.Answer = Console.ReadLine();
                 Console.WriteLine("Is this the right answer?(y/n)");
                 string isTheRightAnswer = Console.ReadLine();
                 if (isTheRightAnswer == "y")
                 {
-                    questionAndAnswer.isCorrect = true;
+                    x.isCorrect = true;
                 }
                 else
                 {
-                    questionAndAnswer.isCorrect = false;
+                    x.isCorrect = false;
                 }
+                questionAndAnswer.Answers.Add(x);
                 Console.WriteLine("Do you want to add more answers?(y/n)");
                 string moreQuestion = Console.ReadLine();
                 if(moreQuestion != "y")
