@@ -35,7 +35,7 @@ namespace quizgame
             filestream.Close();
         }
         /// <summary>
-        /// Counting the questions in the database by checking the number of lines
+        /// Counting the questions in the database by checking the objects
         /// </summary>
         /// <returns>number of questions</returns>
         public static int QuestionCount()
