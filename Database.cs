@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace quizgame
@@ -39,7 +40,12 @@ namespace quizgame
         /// <returns>number of questions</returns>
         public static int QuestionCount()
         {
-            int i = File.ReadLines(DataBaseName()).Count();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(DataBaseName());
+
+            XmlElement root = doc.DocumentElement;
+            XmlNodeList elemList = root.GetElementsByTagName("Question");
+            int i = elemList.Count;
             return i;
         }
 
