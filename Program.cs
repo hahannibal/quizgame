@@ -18,7 +18,7 @@ namespace quizgame
             bool wantToAdd = UI.AddQuestionRequest();
             while (wantToAdd)
             {
-                Database.UpdateDatabase(UI.AddQuestion());
+                Database.AddToDataBase(UI.AddQuestion());
                 wantToAdd = UI.AddQuestionRequest();
             }
             if (Database.QuestionCount() == 0)
@@ -30,7 +30,7 @@ namespace quizgame
             while (wantToPlay)
             {
                 Random number = new Random();
-                bool gameRound = UI.DisplayQuestion(Database.DataBaseName(), number.Next(0,Database.QuestionCount()));
+                bool gameRound = UI.DisplayQuestion(Database.ReadFromDataBase());
                 if (gameRound)
                 {
                     userScore++;
@@ -44,6 +44,7 @@ namespace quizgame
                 
                 wantToPlay = UI.GameLoop();
             }
+            Database.ReadFromDataBase();
             
             
         }

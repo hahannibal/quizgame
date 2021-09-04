@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace quizgame
 {
@@ -15,7 +18,7 @@ namespace quizgame
         /// <returns>The name of the database</returns>
         public static string DataBaseName()
         {
-            string x = "Database.txt";
+            string x = "Database.xml";
             return x;
         }
         /// <summary>
@@ -41,20 +44,30 @@ namespace quizgame
         }
 
         /// <summary>
-        /// saves a line to the database
+        /// Adding questions and answers to the Database
         /// </summary>
-        /// <param name="x">QuestionAndAnswer object containing the new question and the answers</param>
-        public static void UpdateDatabase(QuestionAndAnswer x)
+        /// <param name="questionAndAnswers">Question and answers list</param>
+        public static void AddToDataBase(QuestionAndAnswer questionAndAnswers)
         {
-            StreamWriter sw = new StreamWriter(DataBaseName(), true, Encoding.ASCII);
-            
-            string answersToSave = string.Join(",", x.QAPairs);
-            var question = x.Question + "," + answersToSave;
-            sw.WriteLine(question);
-            sw.Close();
+            XmlSerializer serializer = new XmlSerializer(typeof(QuestionAndAnswer));
+            using (TextWriter tw = new StreamWriter(DataBaseName())) 
+            {
+                serializer.Serialize(tw, questionAndAnswers);
+            };
         }
-
-       
+        /// <summary>
+        /// Reading the database and turning it back to objects
+        /// </summary>
+        /// <returns>Question and Answers object</returns>
+        public static QuestionAndAnswer ReadFromDataBase()
+        {
+            XmlSerializer deserializer = new XmlSerializer(typeof(QuestionAndAnswer));
+            TextReader reader = new StreamReader(DataBaseName());
+            object obj = deserializer.Deserialize(reader);
+            QuestionAndAnswer questionAndAnswer = (QuestionAndAnswer)obj;
+            reader.Close();
+            return questionAndAnswer;
+        }
 
 
     }

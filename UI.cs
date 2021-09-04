@@ -29,6 +29,7 @@ namespace quizgame
             bool wantToAdd = true;
             while (wantToAdd)
             {
+                Console.Clear();
                 QAPair x = new QAPair();
                 Console.WriteLine("Enter an answer(right or wrong):");
                 x.Answer = Console.ReadLine();
@@ -85,7 +86,7 @@ namespace quizgame
         /// <param name="path">path of the database</param>
         /// <param name="i">the number of the selected line</param>
         /// <returns></returns>
-        public static bool DisplayQuestion(string path, int i)
+        public static bool OldDisplayQuestion(string path, int i)
         {
 
             //reading the database, selecting 1 line and splitting it to parts (question and answers)
@@ -126,6 +127,13 @@ namespace quizgame
             
 
         }
+
+        public static bool DisplayQuestion(QuestionAndAnswer x)
+        {
+            Console.WriteLine(x.Question);
+            return true;
+        }
+
         /// <summary>
         /// Checking the selected answer with the correct one
         /// </summary>
