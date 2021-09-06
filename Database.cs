@@ -74,6 +74,11 @@ namespace quizgame
             
         }
 
+
+        /// <summary>
+        /// Adding a QuestionAndAnswers object to the list _questionAndAnswers
+        /// </summary>
+        /// <param name="questionAndAnswer"></param>
         public static void AddQuestionToList(QuestionAndAnswer questionAndAnswer)
         {
             _questionAndAnswers.Add(questionAndAnswer);
