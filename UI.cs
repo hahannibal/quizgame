@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Collections.Generic;
 
 namespace quizgame
 {
@@ -35,6 +33,7 @@ namespace quizgame
                 x.Answer = Console.ReadLine();
                 Console.WriteLine("Is this the right answer?(y/n)");
                 string isTheRightAnswer = Console.ReadLine();
+
                 if (isTheRightAnswer == "y")
                 {
                     x.isCorrect = true;
@@ -128,9 +127,9 @@ namespace quizgame
 
         }
 
-        public static bool DisplayQuestion(QuestionAndAnswer x)
+        public static bool DisplayQuestion(List<QuestionAndAnswer> x)
         {
-            Console.WriteLine(x.Question);
+            Console.WriteLine(x[0]);
             return true;
         }
 
@@ -188,6 +187,10 @@ namespace quizgame
             Console.WriteLine($"You lost a point and now have {userScore} points");
         }
 
+
+        /// <summary>
+        /// If there's no questions in the file, the game cannot be played
+        /// </summary>
         public static void ZeroQuestion()
         {
             Console.WriteLine("You cannot play as I have no questions, sorry :(");

@@ -11,17 +11,21 @@ namespace quizgame
         {
             int userScore = 0;
 
-            Database.FileExist();
+            Database.CheckOrCreateDatabase();
+            Database.ReadFromFile();
+            
+            
 
             UI.WelcomeMessage();
-            UI.CurrentQuestions(Database.QuestionCount());
+            UI.CurrentQuestions(Database.QuestionCount);
             bool wantToAdd = UI.AddQuestionRequest();
             while (wantToAdd)
             {
-                Database.AddToDataBase(UI.AddQuestion());
+                Database.AddQuestionToList(UI.AddQuestion());
                 wantToAdd = UI.AddQuestionRequest();
             }
-            if (Database.QuestionCount() == 0)
+            Database.AddToFile();
+            if (Database.QuestionCount == 0)
             {
                 UI.ZeroQuestion();
                 Environment.Exit(0);
@@ -30,7 +34,7 @@ namespace quizgame
             while (wantToPlay)
             {
                 Random number = new Random();
-                bool gameRound = UI.DisplayQuestion(Database.ReadFromDataBase());
+                bool gameRound = UI.DisplayQuestion(Database.QuestionsAndAnswers);
                 if (gameRound)
                 {
                     userScore++;
@@ -44,9 +48,7 @@ namespace quizgame
                 
                 wantToPlay = UI.GameLoop();
             }
-            Database.ReadFromDataBase();
-            
-            
+                  
         }
 
 

@@ -13,68 +13,70 @@ namespace quizgame
 {
     public static class Database
     {
-        /// <summary>
-        /// Contains the name of the Database for an easier handling
-        /// </summary>
-        /// <returns>The name of the database</returns>
-        public static string DataBaseName()
+        private static List<QuestionAndAnswer> _questionAndAnswers = new List<QuestionAndAnswer>();
+
+        public static List<QuestionAndAnswer> QuestionsAndAnswers
         {
-            string x = "Database.xml";
-            return x;
+            get { return _questionAndAnswers; }
+            set { _questionAndAnswers = value; }
         }
+
+        /// <summary>
+        /// returns the number of questions in the game
+        /// </summary>
+        public static int QuestionCount
+        {
+            get
+            {
+                return _questionAndAnswers.Count;
+            }
+        }
+
+
+        /// <summary>
+        /// Contains the name of the file containing the questions
+        /// </summary>
+        private static string _questionFile = "Database.xml";
+
         /// <summary>
         /// Check if the Database file exists. If not, creates it.
         /// </summary>
-        public static void FileExist()
+        public static void CheckOrCreateDatabase()  
         {
-            if (File.Exists(DataBaseName()))
+            if (File.Exists(_questionFile))
             {
                 return;
             }
-            var filestream = File.Create(DataBaseName());
+            var filestream = File.Create(_questionFile);
             filestream.Close();
         }
-        /// <summary>
-        /// Counting the questions in the database by checking the objects
-        /// </summary>
-        /// <returns>number of questions</returns>
-        public static int QuestionCount()
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(DataBaseName());
-
-            XmlElement root = doc.DocumentElement;
-            XmlNodeList elemList = root.GetElementsByTagName("Question");
-            int i = elemList.Count;
-            return i;
-        }
-
         /// <summary>
         /// Adding questions and answers to the Database
         /// </summary>
         /// <param name="questionAndAnswers">Question and answers list</param>
-        public static void AddToDataBase(QuestionAndAnswer questionAndAnswers)
+        public static void AddToFile()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(QuestionAndAnswer));
-            using (TextWriter tw = new StreamWriter(DataBaseName())) 
-            {
-                serializer.Serialize(tw, questionAndAnswers);
-            };
+            var stream = new FileStream(_questionFile, FileMode.Create);
+            new XmlSerializer(typeof(List<QuestionAndAnswer>)).Serialize(stream, Database._questionAndAnswers);
+            stream.Close();
         }
         /// <summary>
-        /// Reading the database and turning it back to objects
+        /// Putting the questions into the list
         /// </summary>
         /// <returns>Question and Answers object</returns>
-        public static QuestionAndAnswer ReadFromDataBase()
+        public static void ReadFromFile()
         {
-            XmlSerializer deserializer = new XmlSerializer(typeof(QuestionAndAnswer));
-            TextReader reader = new StreamReader(DataBaseName());
+            XmlSerializer deserializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
+            TextReader reader = new StreamReader(_questionFile);
             object obj = deserializer.Deserialize(reader);
-            QuestionAndAnswer questionAndAnswer = (QuestionAndAnswer)obj;
+            _questionAndAnswers = (List<QuestionAndAnswer>)obj;
             reader.Close();
-            return questionAndAnswer;
+            
         }
 
-
+        public static void AddQuestionToList(QuestionAndAnswer questionAndAnswer)
+        {
+            _questionAndAnswers.Add(questionAndAnswer);
+        }
     }
 }
