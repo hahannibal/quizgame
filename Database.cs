@@ -22,6 +22,18 @@ namespace quizgame
         }
 
         /// <summary>
+        /// randomizing the list
+        /// </summary>
+        /// <returns></returns>
+        public static List<QuestionAndAnswer> ShuffledQuestionList() 
+        {
+            List<QuestionAndAnswer> x = new List<QuestionAndAnswer>();
+            var rnd = new Random();
+            x = Database._questionAndAnswers.OrderBy(x => rnd.Next(0,_questionAndAnswers.Count)).ToList();
+            return x;
+        }
+
+        /// <summary>
         /// returns the number of questions in the game
         /// </summary>
         public static int QuestionCount

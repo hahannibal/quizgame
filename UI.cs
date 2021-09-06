@@ -81,6 +81,7 @@ namespace quizgame
 
         public static bool DisplayQuestion(List<QuestionAndAnswer> questionAndAnswers, int count)
         {
+               
             Console.Clear();
             Console.WriteLine(questionAndAnswers[count].Question);
             for (int i = 0; i < questionAndAnswers[count].QAPairs.Count; i++)

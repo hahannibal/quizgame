@@ -37,7 +37,7 @@ namespace quizgame
                     Console.WriteLine("As I ran out of questions, we have to stop now!");
                     break;
                 }
-                bool gameRound = UI.DisplayQuestion(Database.QuestionsAndAnswers,count);
+                bool gameRound = UI.DisplayQuestion(Database.ShuffledQuestionList(),count);
                 if (gameRound)
                 {
                     userScore++;
