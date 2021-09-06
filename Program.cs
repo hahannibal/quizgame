@@ -14,8 +14,6 @@ namespace quizgame
             Database.CheckOrCreateDatabase();
             Database.ReadFromFile();
             
-            
-
             UI.WelcomeMessage();
             UI.CurrentQuestions(Database.QuestionCount);
             bool wantToAdd = UI.AddQuestionRequest();
@@ -31,10 +29,15 @@ namespace quizgame
                 Environment.Exit(0);
             }
             bool wantToPlay = UI.GameLoop();
+            int count = 0;
             while (wantToPlay)
             {
-                Random number = new Random();
-                bool gameRound = UI.DisplayQuestion(Database.QuestionsAndAnswers);
+                if (count == Database.QuestionCount)
+                {
+                    Console.WriteLine("As I ran out of questions, we have to stop now!");
+                    break;
+                }
+                bool gameRound = UI.DisplayQuestion(Database.QuestionsAndAnswers,count);
                 if (gameRound)
                 {
                     userScore++;
@@ -45,7 +48,7 @@ namespace quizgame
                     userScore--;
                     UI.UserLostARound(userScore);
                 }
-                
+                count++;
                 wantToPlay = UI.GameLoop();
             }
                   

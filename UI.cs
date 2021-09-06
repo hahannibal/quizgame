@@ -79,58 +79,20 @@ namespace quizgame
             return false;
         }
 
-        /// <summary>
-        /// displaying the question and answers
-        /// </summary>
-        /// <param name="path">path of the database</param>
-        /// <param name="i">the number of the selected line</param>
-        /// <returns></returns>
-        public static bool OldDisplayQuestion(string path, int i)
+        public static bool DisplayQuestion(List<QuestionAndAnswer> questionAndAnswers, int count)
         {
-
-            //reading the database, selecting 1 line and splitting it to parts (question and answers)
-            string[] allLines = File.ReadAllLines(path);
-            string selectedLine = allLines[i];
-            string[] parts = selectedLine.Split(',');
-            
-            //storing the correct Answer
-            string correctAnswer = parts[1];
-
-            //shuffling the answers
-            Random number = new Random();
-            var sequence = Enumerable.Range(1, 4).OrderBy(x => number.Next()).ToArray();
-            string first = parts[sequence[0]];
-            string second = parts[sequence[1]];
-            string third = parts[sequence[2]];
-            string fourth = parts[sequence[3]];
-
-
-            Console.WriteLine(parts[0]); //display of the question
-            Console.WriteLine($"1: {first} ; 2: {second} ; 3: {third} ; 4: {fourth}"); //display of answers in a random sequence
-            string answer = (Console.ReadLine());
-            switch (answer)
+            Console.WriteLine(questionAndAnswers[count].Question);
+            for (int i = 0; i < questionAndAnswers[count].QAPairs.Count; i++)
             {
-                case "1":
-                    return CorrectOrIncorrect(first, correctAnswer);
-                case "2":
-                    return CorrectOrIncorrect(second, correctAnswer);
-                case "3":
-                    return CorrectOrIncorrect(third, correctAnswer);
-                case "4":
-                    return CorrectOrIncorrect(fourth, correctAnswer);
-                default:
-                    Console.WriteLine("As you couldn't do a simple selection, you lose.");
-                    Console.WriteLine($"The correct answer was: {correctAnswer}");
-                    return false;
+                QAPair answer = questionAndAnswers[count].QAPairs[i];
+                Console.WriteLine($"{i}: {answer.Answer}");
             }
+            Console.WriteLine("Please select the correct answer!");
+            string select = Console.ReadLine();
+            int selectedCase = Int32.Parse(select);
+            QAPair selectedAnswer = questionAndAnswers[count].QAPairs[selectedCase];
+            return CorrectOrIncorrect(selectedAnswer);
             
-
-        }
-
-        public static bool DisplayQuestion(List<QuestionAndAnswer> x)
-        {
-            Console.WriteLine(x[0]);
-            return true;
         }
 
         /// <summary>
@@ -139,14 +101,12 @@ namespace quizgame
         /// <param name="select">Selected answer</param>
         /// <param name="correct">Correct answer</param>
         /// <returns>If the 2 is the same = true, else = false</returns>
-        public static bool CorrectOrIncorrect(string select, string correct)
+        public static bool CorrectOrIncorrect(QAPair answer)
         {
-            if (select == correct)
+            if (answer.isCorrect)
             {
-                Console.WriteLine("You are correct!");
                 return true;
             }
-            Console.WriteLine($"No bueno, the correct answer was: {correct}");
             return false;
         }
 
@@ -174,9 +134,9 @@ namespace quizgame
         {
             if (userScore > 10)
             {
-                Console.WriteLine($"Wow! You have {userScore} points! NOOICE!");
+                Console.WriteLine($"Your answer was, again, correct! Wow! You have {userScore} points! NOOICE!");
             }
-            Console.WriteLine($"Your score currently is {userScore}");
+            Console.WriteLine($"You are correct! Your score currently is {userScore}");
         }
         /// <summary>
         /// Message when losing a point
