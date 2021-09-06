@@ -15,16 +15,10 @@ namespace quizgame
     {
         private static List<QuestionAndAnswer> _questionAndAnswers = new List<QuestionAndAnswer>();
 
-        public static List<QuestionAndAnswer> QuestionsAndAnswers
-        {
-            get { return _questionAndAnswers; }
-            set { _questionAndAnswers = value; }
-        }
-
         /// <summary>
         /// randomizing the list
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The shuffled questions and answers</returns>
         public static List<QuestionAndAnswer> ShuffledQuestionList() 
         {
             List<QuestionAndAnswer> x = new List<QuestionAndAnswer>();
