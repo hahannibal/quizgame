@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace quizgame
 {
@@ -15,29 +16,31 @@ namespace quizgame
             Database.ReadFromFile();
             
             UI.WelcomeMessage();
-            UI.CurrentQuestions(Database.QuestionCount);
-            bool wantToAdd = UI.AddQuestionRequest();
+            UI.CurrentQuestionNumber(Database.QuestionCount);
+            bool wantToAdd = UI.RequestAddingQuestion();
             while (wantToAdd)
             {
                 Database.AddQuestionToList(UI.AddQuestion());
-                wantToAdd = UI.AddQuestionRequest();
+                wantToAdd = UI.RequestAddingQuestion();
             }
-            Database.AddToFile();
+            Database.Save();
             if (Database.QuestionCount == 0)
             {
-                UI.ZeroQuestion();
+                UI.NoQuestionsInTheDatabase();
                 Environment.Exit(0);
             }
-            bool wantToPlay = UI.GameLoop();
+            bool wantToPlay = UI.ContinueGame();
+            List<QuestionAndAnswer> shuffledList = Database.ShuffledQuestionList();
             int count = 0;
             while (wantToPlay)
             {
                 if (count == Database.QuestionCount)
                 {
-                    Console.WriteLine("As I ran out of questions, we have to stop now!");
+                    UI.NoQuestionsLeft();
                     break;
                 }
-                bool gameRound = UI.DisplayQuestion(Database.ShuffledQuestionList(),count);
+                QAPair selectedAnswer = UI.DisplayQuestion(shuffledList, count);
+                bool gameRound = CorrectOrIncorrect(selectedAnswer);
                 if (gameRound)
                 {
                     userScore++;
@@ -49,9 +52,20 @@ namespace quizgame
                     UI.UserLostARound(userScore);
                 }
                 count++;
-                wantToPlay = UI.GameLoop();
+                wantToPlay = UI.ContinueGame();
             }
+
+
                   
+        }
+
+        public static bool CorrectOrIncorrect(QAPair answer)
+        {
+            if (answer.isCorrect)
+            {
+                return true;
+            }
+            return false;
         }
 
 

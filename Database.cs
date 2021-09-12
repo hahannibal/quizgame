@@ -23,7 +23,9 @@ namespace quizgame
         {
             List<QuestionAndAnswer> x = new List<QuestionAndAnswer>();
             var rnd = new Random();
-            x = Database._questionAndAnswers.OrderBy(x => rnd.Next(0,_questionAndAnswers.Count)).ToList();
+    
+            x = _questionAndAnswers.OrderBy(x => rnd.Next(0,_questionAndAnswers.Count)).ToList();
+         
             return x;
         }
 
@@ -60,7 +62,7 @@ namespace quizgame
         /// Adding questions and answers to the Database
         /// </summary>
         /// <param name="questionAndAnswers">Question and answers list</param>
-        public static void AddToFile()
+        public static void Save()
         {
             var stream = new FileStream(_questionFile, FileMode.Create);
             new XmlSerializer(typeof(List<QuestionAndAnswer>)).Serialize(stream, Database._questionAndAnswers);
@@ -77,7 +79,6 @@ namespace quizgame
             object obj = deserializer.Deserialize(reader);
             _questionAndAnswers = (List<QuestionAndAnswer>)obj;
             reader.Close();
-            
         }
 
 

@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace quizgame
 {
     [Serializable]
-    public class QuestionAndAnswer //: ISerializable
+    public class QuestionAndAnswer 
     {
         public string Question;
         public List<QAPair> QAPairs = new List<QAPair>();

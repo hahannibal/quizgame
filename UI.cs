@@ -60,7 +60,7 @@ namespace quizgame
         /// Displaying the number of questions in the system
         /// </summary>
         /// <param name="count">number of questions</param>
-        public static void CurrentQuestions(int count)
+        public static void CurrentQuestionNumber(int count)
         {
             Console.WriteLine($"There is {count} questions in my database!");
         }
@@ -68,55 +68,39 @@ namespace quizgame
         /// Ask the user if he wants to add a new question to the database
         /// </summary>
         /// <returns>Bool; y = true, else = false</returns>
-        public static bool AddQuestionRequest()
+        public static bool RequestAddingQuestion()
         {
             Console.WriteLine("Do you want to add a question to my database?(y/n)");
-            string i = Console.ReadLine();
+            string i = Console.ReadLine().ToLower();
             if (i == "y")
             {
                 return true;
             }
             return false;
         }
-
-        public static bool DisplayQuestion(List<QuestionAndAnswer> questionAndAnswers, int count)
+        public static QAPair DisplayQuestion(List<QuestionAndAnswer> questionAndAnswers, int index)
         {
                
             Console.Clear();
-            Console.WriteLine(questionAndAnswers[count].Question);
-            for (int i = 0; i < questionAndAnswers[count].QAPairs.Count; i++)
+            Console.WriteLine(questionAndAnswers[index].Question);
+            for (int i = 0; i < questionAndAnswers[index].QAPairs.Count; i++)
             {
-                QAPair answer = questionAndAnswers[count].QAPairs[i];
+                QAPair answer = questionAndAnswers[index].QAPairs[i];
                 Console.WriteLine($"{i}: {answer.Answer}");
             }
             Console.WriteLine("Please select the correct answer!");
             string select = Console.ReadLine();
             int selectedCase = Int32.Parse(select);
-            QAPair selectedAnswer = questionAndAnswers[count].QAPairs[selectedCase];
-            return CorrectOrIncorrect(selectedAnswer);
-            
+            QAPair selectedAnswer = questionAndAnswers[index].QAPairs[selectedCase];
+            return selectedAnswer;
         }
 
-        /// <summary>
-        /// Checking the selected answer with the correct one
-        /// </summary>
-        /// <param name="select">Selected answer</param>
-        /// <param name="correct">Correct answer</param>
-        /// <returns>If the 2 is the same = true, else = false</returns>
-        public static bool CorrectOrIncorrect(QAPair answer)
-        {
-            if (answer.isCorrect)
-            {
-                return true;
-            }
-            return false;
-        }
 
         /// <summary>
         /// asking the user if he wants to play/play again
         /// </summary>
         /// <returns>y = true , else = false</returns>
-        public static bool GameLoop()
+        public static bool ContinueGame()
         {
             Console.WriteLine("Push the SpaceBar to get a question!");
             ConsoleKeyInfo answer = Console.ReadKey();
@@ -153,9 +137,14 @@ namespace quizgame
         /// <summary>
         /// If there's no questions in the file, the game cannot be played
         /// </summary>
-        public static void ZeroQuestion()
+        public static void NoQuestionsInTheDatabase()
         {
             Console.WriteLine("You cannot play as I have no questions, sorry :(");
+        }
+
+        public static void NoQuestionsLeft()
+        {
+            Console.WriteLine("As I ran out of questions, we have to stop now!");
         }
     }
 }
