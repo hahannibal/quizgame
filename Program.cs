@@ -13,7 +13,7 @@ namespace quizgame
             int userScore = 0;
 
             Database.CheckOrCreateDatabase();
-            Database.ReadFromFile();
+            Database.Read();
             
             UI.WelcomeMessage();
             UI.CurrentQuestionNumber(Database.QuestionCount);

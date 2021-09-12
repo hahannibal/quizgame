@@ -72,7 +72,7 @@ namespace quizgame
         /// Putting the questions into the list
         /// </summary>
         /// <returns>Question and Answers object</returns>
-        public static void ReadFromFile()
+        public static void Read()
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(List<QuestionAndAnswer>));
             TextReader reader = new StreamReader(_questionFile);
