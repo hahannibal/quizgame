@@ -1,4 +1,4 @@
-# slot-machine
+# quiz game
 Hi! This is a small, console quizgame.
  - You can add questions to your "database" file, they will be stored
  - The questions can have multiple answers
